@@ -25,6 +25,7 @@ analyysi.analysoi  ── osat (dict) ──▶ raportti.kirjoita ──▶ rapo
 | `kirja.py` | sivutyypit, pistekartat SVG:nä, sataruudukko, pino, merkit, pavunvarsi | `ilme` |
 | `ilme.py` | Signaali-värit, asteikot (`signaali`, `maara`, `markyys`, `ipar`, `vaje`, `helle`, varattu `n2o-riski`), fontit, CSS, selaus-JS | – |
 | `sanasto.py` | termit ja ilmiöt valitaan mukana olevien osioiden mukaan | – |
+| `sato.py` | satokartta ruudukkoon, satotaso, vaje kolmeen viitteeseen, DTW-jako, salaojavaraus, maahan päätyvä hiili | `maahiili` |
 | `pylvaat3d.py` | analyysin tulokset Beanstalk Growth Space -dataksi (kerrokset, vertailu, tila) | `beanstalk4d` (valinnainen) |
 
 ## Datasopimus: `osat`
@@ -41,6 +42,8 @@ analyysi.analysoi  ── osat (dict) ──▶ raportti.kirjoita ──▶ rapo
 | `vertailu`, `vertailualue` | vertailulohkot ja indeksit; alueen korkeusmalli ja DTW 3D-näkymään |
 | `talvi` | talvet (viherpeite, talvehtiminen) |
 | `pilvisyys`, `koko_vuosi`, `ajot` | 3D-näkymän sää, koko vuoden tila ja koneajot |
+| `sato` | `{vuosi: sato.Satokartta}` analyysiruudukossa (10 m); ilman sitä satosivu on varaus |
+| `salaojat` | `sato.Salaojakartta` (varaus); ruudut ryhmitellään ojitusluokan mukaan, kun annettu |
 | `lahteet`, `huomiot` | tietolähteet ja huomiot |
 
 ### Vuon tulos (`vuodet[v]["vuo"]`)
@@ -79,7 +82,8 @@ verso:juuri-suhde ja eriteosuus, tai satokartta.
 2. Yhdellä silmäyksellä · 3. Pavunvarsi · 4. Lohko
 5. Kasvuvaihtelu (aukeama + sisältö)
 6. Kaudet uusimmasta: kausi (aukeama + sisältö), hiili (aukeama + sisältö)
-7. Maaperä · 8. Vertailu · 9. Talvi · 10. Ilmiöt · 11. Termit · 12. Takakansi
+7. Satotaso ja satovaje (`_sato_osio`, ks. docs/sato-ja-satovaje.md)
+8. Maaperä · 9. Vertailu · 10. Talvi · 11. Ilmiöt · 12. Termit · 13. Takakansi
 
 ### Hiilisivu (kausittain)
 

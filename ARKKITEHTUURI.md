@@ -41,8 +41,8 @@ analyysi.analysoi  ── osat (dict) ──▶ raportti.kirjoita ──▶ rapo
 | `maapera` | maaperä ja maasto (`kerrokset_2m`, `transform_2m`, tunnusluvut, selittäjät) |
 | `vertailu`, `vertailualue` | vertailulohkot ja indeksit; alueen korkeusmalli ja DTW 3D-näkymään |
 | `talvi` | talvet (viherpeite, talvehtiminen) |
-| `pilvisyys`, `koko_vuosi`, `ajot` | 3D-näkymän sää, koko vuoden tila ja koneajot |
-| `sato` | `{vuosi: sato.Satokartta}` analyysiruudukossa (10 m); ilman sitä satosivu on varaus |
+| `pilvisyys`, `koko_vuosi`, `ajot` | 3D-näkymän sää, koko vuoden tila ja koneajot (puimurin reitti `GT/puintireitti`) |
+| `sato` | `{vuosi: sato.Satokartta}` analyysiruudukossa (10 m), luettu varastosta `GT/satokartta` (puinti: `maastotosi --puimuri`); ilman sitä satosivu on varaus |
 | `salaojat` | `sato.Salaojakartta` (varaus); ruudut ryhmitellään ojitusluokan mukaan, kun annettu |
 | `lahteet`, `huomiot` | tietolähteet ja huomiot |
 

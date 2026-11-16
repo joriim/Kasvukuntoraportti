@@ -16,7 +16,14 @@ korjuukosteudessa, lähde ja koko kartalle kosteus.
 | puimatta | 4 | ei satoa; GPP-pylväs jää seisomaan |
 | ei tietoa | 0 | piste |
 
-Satokartan voi tuoda kahdella tavalla:
+**Puinti syöttää analyysiin.** `kasvukunto maastotosi <lohko> --vuosi V --puimuri L3.parquet` kirjaa
+sadonkorjuun ajoituksen ja tallentaa satokartan ja reitin varastoon (`GT/satokartta`, `GT/puintireitti`).
+`analysoi` lukee ne (`sato.lue_puinti`) ja käyttää niitä raportin satosivulla, RUE:n laskennassa sadosta ja
+3D-näkymän ajona (docs/maastotosi.md).
+
+Satokartan voi tuoda kolmella tavalla:
+
+- **Varastosta** (`sato.lue_puinti(varasto, lohko, vuosi, solukko)`), kun puinti on kirjattu.
 
 - **Beanstalk Growth Space -puintinäkymä** (`sato.katselimesta(data)`). Datan avain `sato` sisältää
   arvot (`arvo`, uint16 × `skaala`), lähteet (`lahde`), varmimman ruutukoon ryhmät (`varma`: koko_m,
@@ -153,5 +160,6 @@ Satovajeen lisäykset näkymään (suunnitelma):
 2. Oman maksimin määritelmä: maksimi, toiseksi paras vai P80? Päätös, kun vuosia on vähintään viisi.
 3. Samankaltaisuusryhmien piirteet: lisätäänkö maalaji (GTK 1:20 000 on harvoin riittävän tarkka) ja
    viljavuusnäytteet?
-4. Puintinäkymän tuottava koodi ei ole näissä repoissa (näkymässä on `sato`-avain, jota
+4. Puinti syöttää analyysiin (toteutettu: `maastotosi --puimuri` → `GT/satokartta` → `analysoi`).
+   Puintinäkymän tuottava koodi ei silti ole näissä repoissa (näkymässä on `sato`-avain, jota
    `beanstalk4d`:n julkinen versio ei vielä tuota). Tuodaanko se `beanstalk4d`:hen vai analyysiin?

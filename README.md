@@ -1,11 +1,12 @@
 # Kasvukuntoraportti
 
-Kasvukuntoanalyysin raporttikerros: yksi itsenäinen HTML-kirjanen peltolohkon kasvukunnosta.
-Signaali-ilme sisäsivuilla, Helle yöllä -kansi ([joriim/oma-design](https://github.com/joriim/oma-design)),
-ja upotettu Beanstalk Growth Space -näkymä (valinnainen `beanstalk4d`).
+**Raportti on osa Growth Analysisia.** Kasvukuntoraportin koodi on repossa
+[joriim/Beanstalk-Growth-Analysis](https://github.com/joriim/Beanstalk-Growth-Analysis)
+(`src/kasvukunto/raportti.py`, `kirja.py`, `ilme.py`, `sanasto.py`) ja arkkitehtuuri tiedostossa
+`docs/raportin-arkkitehtuuri.md`.
 
-Analyysi (satelliittiaineisto, vuomallit, vertailu) on repossa
-[joriim/Beanstalk-Growth-Analysis](https://github.com/joriim/Beanstalk-Growth-Analysis). Se kutsuu
-raporttia `kirjoita(polku, osat)`. Datasopimus, moduulit ja sivukartta: [ARKKITEHTUURI.md](ARKKITEHTUURI.md).
+Erillistä raporttipakettia kokeiltiin 17.11.2026, mutta tavoite on yksi Growth Analysis, joten paketti
+peruttiin. Tähän repoon jäivät suunnitteludokumentit:
 
-**Tila:** arkkitehtuuri kuvattu. Koodi siirretään tänne, kun analyysirepon PR #1 on yhdistetty.
+- [ARKKITEHTUURI.md](ARKKITEHTUURI.md): raportin rakenne ja datasopimus (pakettivaiheen kuvaus)
+- [SATO-JA-SATOVAJE.md](SATO-JA-SATOVAJE.md): satotason ja satovajeen suunnitelma

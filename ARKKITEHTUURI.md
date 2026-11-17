@@ -4,15 +4,18 @@ Kasvukuntoraportti on yksi itsenäinen HTML-tiedosto: interaktiivinen kirjanen (
 on Helle yöllä -tyylinen pistekuva ja jonka uusimman kauden hiilisivulla on upotettu Beanstalk Growth
 Space -näkymä. Raportti ei laske mitään itse: analyysi tuottaa tulokset, raporttikerros esittää ne.
 
-Raporttikerros erotetaan omaksi paketikseen repoon
-[joriim/Kasvukuntoraportti](https://github.com/joriim/Kasvukuntoraportti). Siihen asti se asuu tässä repossa.
+Raporttikerros on omana pakettinaan `kasvukuntoraportti` repossa
+[joriim/Kasvukuntoraportti](https://github.com/joriim/Kasvukuntoraportti). Analyysi riippuu siitä
+(`pyproject.toml`), ja raportti ei riipu analyysistä.
 
 ## Kerrokset
 
 ```
-analyysi (kasvukunto)                 raportti (tuleva paketti kasvukuntoraportti)
+analyysi (kasvukunto)                 raportti (paketti kasvukuntoraportti)
 ───────────────────────               ─────────────────────────────────────────────
-analyysi.analysoi  ── osat (dict) ──▶ raportti.kirjoita ──▶ raportti.html
+analyysi.analysoi  ── osat (dict) ──▶ kasvukunto.raportti.kirjoita (liitos)
+                                        ├─ raporttiosiot.osiot(osat) ──▶ osat["osiot"]
+                                        └─ kasvukuntoraportti.kirjoita ──▶ raportti.html
   vuo.kartat (aikasarja)                kirja      sivutyypit: kansi, aukeama, sisältösivu, pavunvarsi
   maahiili.maanalainen (varaus)         ilme       värit, asteikot, fontit, CSS, JS, kuvaajien teema
   vaihtelu, vertailu, maapera, talvi    sanasto    termit ja ilmiöt
@@ -105,11 +108,15 @@ alusta (FMI:n lähin asema), maasto (MML 2 m, väri Luken DTW), vertailulohkot, 
 pilvet ja sade, koko vuoden tila (lumi, kasviton, viherpeite) ja viirit. IPAR on eri yksikössä (MJ/m²), joten
 se on raportin kartta eikä pylväskerros.
 
-## Paketiksi erottaminen
+## Paketiksi erottaminen (tehty)
 
-1. Kasvukuntoraportti-repoon paketti `kasvukuntoraportti`: `raportti`, `kirja`, `ilme`, `sanasto`, fontit,
-   ja `kasvu3d_osio` valinnaisena (`[nakyma3d]` → `beanstalk4d`).
-2. `pylvaat3d` jää analyysiin (laskee kerrokset), tai siirtyy raporttipakettiin sovittimena; päätetään
-   erotettaessa.
-3. Analyysi kutsuu `kasvukuntoraportti.kirjoita(polku, osat)`; datasopimus yllä on rajapinta.
-4. Testit: `test_raportti*.py` ja `raportti_esimerkki.py` siirtyvät pakettiin.
+| Missä | Mitä |
+|---|---|
+| `kasvukuntoraportti` (Kasvukuntoraportti-repo) | `raportti` (taitto, kuvaajat, sivut), `kirja`, `ilme`, `sanasto`, fontit; omat testit kevyillä esimerkkiosilla |
+| `kasvukunto.raporttiosiot` | laskevat osiot HTML-osiksi: `kasvu3d` (Beanstalk Growth Space, `pylvaat3d`), `sato` (satotaso ja satovaje, `sato`), `pisteytys` (`pisteraportti`) |
+| `kasvukunto.raportti` | liitos: lisää osiot ja analyysin version osiin ja kutsuu paketin `kirjoita`; muut nimet paketista |
+| `kasvukunto.ilme`, `kirja`, `sanasto` | välittäjät: sama moduuli kuin paketissa, joten vanhat tuonnit toimivat |
+
+Raportti näyttää osion, kun `osat["osiot"]` sisältää sen. Ilman satoosiota satosivu on varauskortti,
+ilman pisteytystä sivu jää pois ja ilman 3D-osiota hiilisivulla ei ole näkymää.
+Analyysin raporttitestit (`test_raportti*.py`, `raportti_esimerkki.py`) ajavat paketin liitoksen kautta.
